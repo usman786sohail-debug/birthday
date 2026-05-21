@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person ❤️</title>
+    <style>
+        @import url('https://googleapis.com');
 
+        * { box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 25px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cute Floating Hearts Animation */
+        .heart-bg {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 143, 171, 0.4);
+            animation: float Up 6s linear infinite;
+            bottom: -50px;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.2);
+            text-align: center;
+            border: 2px solid #ffb3c6;
+            z-index: 10;
+        }
+
+        h1 { color: #ff477e; font-size: 26px; margin-bottom: 5px; font-weight: 700; }
+        .subtitle { color: #ff7096; font-size: 14px; margin-bottom: 25px; }
+
+        /* Envelope / Card Styling */
+        .envelope-wrapper { margin-bottom: 20px; }
+        
+        .envelope {
+            background: #ffffff;
+            border: 2px solid #ffc2d1;
+            border-radius: 20px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .envelope:hover { transform: translateY(-3px); }
+
+        .envelope-header {
+            background: #ff85a1;
+            color: white;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+        .envelope.open .envelope-header { background: #ff477e; }
+        .envelope-header::after { content: '💖'; font-size: 14px; transition: transform 0.4s; }
+        .envelope.open .envelope-header::after { transform: rotate(180deg); content: '💝'; }
+
+        .letter-content {
+            max-height: 0;
+            opacity: 0;
+            padding: 0 20px;
+            transition: all 0.5s ease;
+            background: #fffbfb;
+            text-align: left;
+        }
+        .envelope.open .letter-content {
+            max-height: 400px;
+            opacity: 1;
+            padding: 25px 20px;
+            border-top: 2px dashed #ffe5ec;
+        }
+
+        .handwriting {
+            font-family: 'Caveat', cursive;
+            font-size: 23px;
+            color: #4a3e3d;
+            line-height: 1.4;
+            margin: 0;
+            word-wrap: break-word;
+        }
+
+        footer { margin-top: 25px; font-size: 12px; color: #ff85a1; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Happy Birthday, Beautiful! 🎂</h1>
+        <p class="subtitle">A little world made only for you. Tap to open.</p>
+
+        <!-- CARD 1 -->
+        <div class="envelope-wrapper">
+            <div class="envelope" onclick="toggleEnvelope(this)">
+                <div class="envelope-header">✨ Open Right Now</div>
+                <div class="letter-content">
+                    <p class="handwriting">Happy Birthday, my love! Even though miles separate us today, you are the only one on my mind. You make my life so much brighter just by being in it. I hope this little digital corner brings a massive smile to your face today. I love you endlessly! ❤️</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="envelope-wrapper">
+            <div class="envelope" onclick="toggleEnvelope(this)">
+                <div class="envelope-header">🌙 Open When You Miss Me</div>
+                <div class="letter-content">
+                    <p class="handwriting">Whenever the long distance feels a little too heavy, take a deep breath and read this. Distance is just a temporary test of how big our love is. Close your eyes and remember the last time we hugged. I am always right here with you. Text me a "🐻" right now so I know you are thinking of me!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="envelope-wrapper">
+            <div class="envelope" onclick="toggleEnvelope(this)">
+                <div class="envelope-header">☁️ Open On a Rough Day</div>
+                <div class="letter-content">
+                    <p class="handwriting">Hey, look at me. You are incredibly strong, brilliant, and capable of handling absolutely anything life throws at you. Don't let a bad day make you forget how amazing you are. Take it easy tonight, get some rest, and remember I am always your number one fan. Call me whenever you're ready. 💕</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>Made with love, just for you ✨</footer>
+    </div>
+
+    <script>
+        // Smooth opening mechanism
+        function toggleEnvelope(element) {
+            const allEnvelopes = document.querySelectorAll('.envelope');
+            allEnvelopes.forEach(env => {
+                if (env !== element) env.classList.remove('open');
+            });
+            element.classList.toggle('open');
+        }
+
+        // Generate falling/floating visual hearts background
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerText = ['❤️','💖','✨','🌸','💕'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+            heart.style.fontSize = Math.random() * 15 + 15 + "px";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 600);
+    </script>
+</body>
+</html>
